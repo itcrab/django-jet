@@ -23,11 +23,17 @@ from django.contrib.admin import AdminSite
 from django.utils.encoding import smart_text
 from django.utils.text import capfirst
 from django.contrib import messages
-from django.utils.encoding import force_text
+try:
+    from django.utils.encoding import force_text
+except ImportError:  # Django 4
+    from django.utils.encoding import force_str as force_text
 from django.utils.functional import Promise
 from django.contrib.admin.options import IncorrectLookupParameters
 from django.contrib import admin
-from django.utils.translation import ugettext_lazy as _
+try:
+    from django.utils.translation import ugettext_lazy as _
+except ImportError:  # Django 4
+    from django.utils.translation import gettext_lazy as _
 from django.utils.text import slugify
 
 try:

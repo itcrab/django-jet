@@ -16,14 +16,23 @@ from googleapiclient.discovery import build
 import httplib2
 from jet.dashboard.modules import DashboardModule
 from oauth2client.client import flow_from_clientsecrets, OAuth2Credentials, AccessTokenRefreshError, Storage
-from django.utils.translation import ugettext_lazy as _
+try:
+    from django.utils.translation import ugettext_lazy as _
+except ImportError:  # Django 4
+    from django.utils.translation import gettext_lazy as _
 from django.conf import settings
-from django.utils.encoding import force_text
+try:
+    from django.utils.encoding import force_text
+except ImportError:  # Django 4
+    from django.utils.encoding import force_str as force_text
 
 try:
     from django.utils.encoding import force_unicode
 except ImportError:
-    from django.utils.encoding import force_text as force_unicode
+    try:
+        from django.utils.encoding import force_text as force_unicode
+    except ImportError:  # Django 4
+        from django.utils.encoding import force_str as force_unicode
 
 try:
     from django.forms.utils import flatatt

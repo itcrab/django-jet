@@ -3,7 +3,10 @@ try:
 except ImportError: # Django 1.11
     from django.urls import reverse
 
-from django.conf.urls import url
+try:
+    from django.conf.urls import url
+except ImportError:  # Django 4
+    from django.urls import re_path as url
 from django.contrib import messages
 from django.shortcuts import redirect
 from httplib2 import ServerNotFoundError
@@ -12,7 +15,10 @@ from jet.dashboard.models import UserDashboardModule
 from jet.dashboard import dashboard
 from django.http import HttpResponse
 from oauth2client.client import FlowExchangeError
-from django.utils.translation import ugettext_lazy as _
+try:
+    from django.utils.translation import ugettext_lazy as _
+except ImportError:  # Django 4
+    from django.utils.translation import gettext_lazy as _
 
 
 def google_analytics_grant_view(request, pk):

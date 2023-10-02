@@ -1,4 +1,7 @@
-from django.conf.urls import url
+try:
+    from django.conf.urls import url
+except ImportError:  # Django 4
+    from django.urls import re_path as url
 from django.contrib import messages
 try:
     from django.core.urlresolvers import reverse
@@ -10,7 +13,10 @@ from django.shortcuts import redirect
 from jet.dashboard.dashboard_modules.yandex_metrika import YandexMetrikaClient
 from jet.dashboard.models import UserDashboardModule
 from jet.dashboard import dashboard
-from django.utils.translation import ugettext_lazy as _
+try:
+    from django.utils.translation import ugettext_lazy as _
+except ImportError:  # Django 4
+    from django.utils.translation import gettext_lazy as _
 
 
 def yandex_metrika_grant_view(request, pk):

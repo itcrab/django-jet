@@ -1,5 +1,9 @@
 import django
-from django.conf.urls import include, url
+from django.conf.urls import include
+try:
+    from django.conf.urls import url
+except ImportError:  # Django 4
+    from django.urls import re_path as url
 from django.contrib import admin
 
 admin.autodiscover()
