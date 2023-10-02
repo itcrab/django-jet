@@ -1,5 +1,8 @@
 from django.contrib.admin import RelatedFieldListFilter
-from django.utils.encoding import smart_text
+try:
+    from django.utils.encoding import smart_text
+except ImportError:  # Django 4
+    from django.utils.encoding import smart_str as smart_text
 from django.utils.html import format_html
 try:
     from django.core.urlresolvers import reverse
