@@ -1,7 +1,10 @@
 from importlib import import_module
 import json
 from django.db import models
-from django.utils.encoding import python_2_unicode_compatible
+try:
+    from django.utils.encoding import python_2_unicode_compatible
+except ImportError:  # Django 4
+    from six import python_2_unicode_compatible
 try:
     from django.utils.translation import ugettext_lazy as _
 except ImportError:  # Django 4
